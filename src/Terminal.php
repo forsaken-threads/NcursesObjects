@@ -39,14 +39,23 @@ class Terminal {
         return ncurses_has_il();
     }
 
-    public function allAtributes() {
+    /**
+     * @return bool
+     */
+    public function allAttributes() {
         return ncurses_termattrs();
     }
 
+    /**
+     * @return string
+     */
     public function termName() {
         return ncurses_termname();
     }
 
+    /**
+     * @return string
+     */
     public function longName() {
         return ncurses_longname();
     }

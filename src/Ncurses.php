@@ -1,13 +1,6 @@
 <?php
 namespace wapmorgan\NcursesObjects;
 
-function ncurses_init() {
-    if (function_exists('\ncurses_init')) {
-        return \ncurses_init();
-    }
-    throw new \RuntimeException("Library <ncurses> in not loaded.");
-}
-
 /**
  * A ncurses object that implements functionality for main ncurses functions
  * @author wapmorgan (wapmorgan@gmail.com)
@@ -28,9 +21,14 @@ class Ncurses {
     private $terminal;
 
 	/**
-	 * Inits ncurses
+	 * Initializes ncurses
+     *
+     * @throws \RuntimeException
 	 */
 	public function __construct() {
+        if (!function_exists('\ncurses_init')) {
+            throw new \RuntimeException("Library <ncurses> is not loaded.");
+        }
 		ncurses_init();
 	}
 
@@ -54,7 +52,7 @@ class Ncurses {
 	 * Sets echo state
 	 * @param bool $state True of false
 	 * @see http://www.php.net/manual/en/function.ncurses-echo.php
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function setEchoState($state) {
 		if ($state)
@@ -67,7 +65,7 @@ class Ncurses {
 	/**
 	 * Sets new-line translation state
 	 * @param bool $state True of false
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function setNewLineTranslationState($state) {
 		if ($state)
@@ -80,7 +78,7 @@ class Ncurses {
 	/**
 	 * Sets cursor state
 	 * @param integer $state CURSOR_INVISIBLE, CURSOR_NORMAL or CURSOR_VISIBLE
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function setCursorState($state) {
 		ncurses_curs_set($state);
@@ -91,7 +89,7 @@ class Ncurses {
 	 * Moves the main cursor
 	 * @param integer $y Row
 	 * @param integer $x Column
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function moveOutput($y, $x) {
 		ncurses_move($y, $x);
@@ -100,16 +98,16 @@ class Ncurses {
 
 	/**
 	 * Refreshes the main window
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function refresh() {
-		ncurses_refresh();
+		ncurses_refresh(null);
 		return $this;
 	}
 
 	/**
 	 * Lets the terminal beep
-	 * @return Ncurses This object
+	 * @return $this
 	 */
 	public function beep() {
 		ncurses_beep();
@@ -137,6 +135,8 @@ class Ncurses {
 	 * Refreshes the virtual screen to reflect the relations between panels in the stack
 	 * and
 	 * Write all prepared refreshes to terminal
+     *
+     * @return $this
 	 */
 	public function updatePanels() {
 		ncurses_update_panels();

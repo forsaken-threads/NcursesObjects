@@ -85,7 +85,7 @@ class Window {
 
 	/**
 	 * Draws a border around this window
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function border($left = 0, $right = 0, $top = 0, $bottom = 0, $tl_corner = 0, $tr_corner = 0, $bl_corner = 0, $br_corner = 0) {
 		ncurses_wborder($this->windowResource, $left, $right, $top, $bottom, $tl_corner, $tr_corner, $bl_corner, $br_corner);
@@ -95,7 +95,7 @@ class Window {
 	/**
 	 * Draws a border with non-usual style
 	 * @param integer $style Can be BORDER_STYLE_SOLID, BORDER_STYLE_DOUBLE or BORDER_STYLE_BLOCK
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function borderStyle($style) {
 		if ($style == self::BORDER_STYLE_SOLID) {
@@ -110,7 +110,7 @@ class Window {
 
 	/**
 	 * Refreshes (redraws) a window
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function refresh() {
 		ncurses_wrefresh($this->windowResource);
@@ -120,7 +120,7 @@ class Window {
 	/**
 	 * Draws a window title
 	 * @param string $title Title
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function title($title) {
 		$this->moveCursor(1, 0);
@@ -131,7 +131,7 @@ class Window {
 	/**
 	 * Draws a window status (a line at the bottom)
 	 * @param string $status Status
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function status($status) {
 		$this->moveCursor(1, $this->rows -1 );
@@ -141,7 +141,7 @@ class Window {
 
 	/**
 	 * Erases a window
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function erase() {
 		ncurses_werase($this->windowResource);
@@ -152,7 +152,7 @@ class Window {
 	 * Moves a cursor
 	 * @param integer $x Cursor column
 	 * @param integer $y Cursor row
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function moveCursor($x, $y) {
 		$this->cursorX = $x;
@@ -166,7 +166,7 @@ class Window {
 	 * @param string $string String
 	 * @param integer $attributes Ncurses attributes (eg. NCURSES_A_REVERSE)
 	 * @see http://pubs.opengroup.org/onlinepubs/007908799/xcurses/curses.h.html for available attributes (WA_LOW => NCURSES_A_LOW)
-	 * @return Window This object
+	 * @return $this
 	 */
 	public function drawStringHere($string, $attributes = 0) {
 		ncurses_wattron($this->windowResource, $attributes);
@@ -190,7 +190,7 @@ class Window {
 
 	/**
 	 * Makes a panel associated with this window
-	 * @return this
+	 * @return $this
 	 */
 	public function makePanel() {
 		$this->panel = new Panel($this);
@@ -199,7 +199,7 @@ class Window {
 
 	/**
 	 * Returns a Panel associated with this window
-	 * @return Panel or null
+	 * @return Panel|null
 	 */
 	public function getPanel() {
 		return $this->panel;
@@ -209,7 +209,7 @@ class Window {
 	 * Makes a window that will be in center of the screen
 	 * @param Window $parentWindow A window that will be major for new window
 	 * @param integer $columns New window columns count
-	 * @param integer $row New window rows count
+	 * @param integer $rows New window rows count
 	 * @return Window A new window that centered of parent window
 	 */
 	static public function createCenteredOf(Window $parentWindow, $columns, $rows) {

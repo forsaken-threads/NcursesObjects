@@ -17,7 +17,7 @@ class Panel {
 
 	/**
 	 * Constructor
-	 * @param Window A window to associate
+	 * @param Window $window A window to associate
 	 */
 	public function __construct(Window $window) {
 		$this->window = $window;
@@ -37,7 +37,7 @@ class Panel {
 
 	/**
 	 * Shows a panel
-	 * @return Panel This object
+	 * @return $this
 	 */
 	public function show() {
 		ncurses_show_panel($this->panelResource);
@@ -46,7 +46,7 @@ class Panel {
 
 	/**
 	 * Hides a panel
-	 * @return Panel This object
+	 * @return $this
 	 */
 	public function hide() {
 		ncurses_hide_panel($this->panelResource);
@@ -55,7 +55,7 @@ class Panel {
 
 	/**
 	 * Puts a panel on the top
-	 * @return Panel This object
+	 * @return $this
 	 */
 	public function putOnTop() {
 		ncurses_top_panel($this->panelResource);
@@ -64,7 +64,7 @@ class Panel {
 
 	/**
 	 * Puts a panel on the bottom
-	 * @return Panel This object
+	 * @return $this
 	 */
 	public function putOnBottom() {
 		ncurses_bottom_panel($this->panelResource);
